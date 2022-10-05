@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Listado de vacantes</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+</head>
+<body>
+
+	<img th:src="@{/images/logo.png}" width="136" height="136"> <!-- es la ruta relativa para acceder al logo -->
+	<h1 class="text-success">Lista de vacantes</h1>
+
+	<table class="table table-hover table-striped table-bordered table-primary">
+		<tr>
+			<th>Logo</th>
+			<th>Id</th>
+			<th>Nombre</th> 
+			<th>Fecha de Pub</th>
+			<th>Salario Ofrecido</th>
+			<th>Descripcion</th>
+			<th>Destacada</th>
+			<th>Detalle</th> <!-- Es el boton detalle -->
+			<th>Borrar</th><!-- Boton de borrar -->
+		</tr>
+		<!-- se uso la expresion th:each porque se va repetir varias veces las vacantes -->
+		<tr th:each="vacante : ${vacantes} "> <!-- "vacantes" es el modelo que se creo en homecontroller -->
+			<td>
+			<!-- Aqui la estructura cambia, porque debemos definir uuna variable temporal, en esre caso
+			{img} es la variable temporal, entonces esa variable manda a llamar al altributo imagen del
+			objeto vacante, asi cada imagen toma su lugar -->
+			<img th:src="@{/images/{img} ( img=${vacante.imagen} ) }" width="136" height="136">
+			</td>
+			<td th:text="${vacante.id}"></td> <!-- Esta llamando a los datos que estan en los atributos de homecontroller -->
+			<td th:text="${vacante.nombre}"></td>
+			<td th:text="${vacante.fecha}"></td>
+			<td th:text="${vacante.salario}"></td>
+			<td th:text="${vacante.descripcion}"></td>
+			<!--<td th:text="${vacante.destacado}"></td>-->
+			<!--<td th:text="${vacante.destacado == 1 ? 'Si' : 'No'}"></td>--> <!-- Se trata de un operador Elvis en una vista, nos dice que si la vacante esta destacada como 1, diga SI de lo contrario diga NO -->
+			<td>
+			<!-- La condicion debe ser la misma, esta condicion dice, que si el vacante es destacado diga SI en color rojo queda de lo contrario en verde -->
+				<span th:if="${vacante.destacado==1}" class="badge bg-success">Si</span> <!-- se trata de u  operador if-less -->
+				<span th:unless="${vacante.destacado==1}" class="badge bg-danger">No</span>
+			</td>
+			<td>
+			<!-- Aqui esta la parte dinamica del boton, en donde va solicitar el id de cada vacante y lo mandara a llamar, de alli nos llevara a su seccion de la vacante -->
+				<a th:href="@{/vacantes/view/{id} (id=${vacante.id}) }" class="btn btn-success">Detalle</a> <!-- Aqui esta el primer boton -->
+			</td>
+			<td>
+			<!-- FUE UN EJEMPLO DE REQUEST PARAM DE TIPO GET -->
+			<!-- En la URL automaticamente pone el signo de ? y borrando el id que se debe -->
+				<a th:href="@{/vacantes/delete(id=${vacante.id}) }" class="btn btn-danger">Borrar</a>
+			</td>
+		</tr>
+		
+	</table>
+	
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+</body>
+</html>
