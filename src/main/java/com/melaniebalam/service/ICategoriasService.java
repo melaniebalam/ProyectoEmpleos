@@ -6,8 +6,8 @@ import com.melaniebalam.model.Categoria;
 public interface ICategoriasService {
 	void guardar(Categoria categoria);
     List<Categoria> buscarTodas();
-	Categoria buscarPorId(Integer idCategoria);
-	
+	Categoria buscarPorId(Integer idCategoria); 
+	// todos los metodos que queramos implementar, deben estar aqui, para que se puedan mostrar en las otras interfazes
 }
 // Ejercicios video 12
 /*

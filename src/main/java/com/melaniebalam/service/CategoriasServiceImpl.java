@@ -3,11 +3,13 @@ package com.melaniebalam.service;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import com.melaniebalam.model.Categoria;
 
 @Service
+@Primary // si ponemos esta anotacion aca, va mostrar las categorias que estan en la lista, osea las estaticas
 public class CategoriasServiceImpl implements ICategoriasService {
 
 	private List<Categoria> lista = null;

@@ -1,7 +1,17 @@
 package com.melaniebalam.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="Categorias") // el nombre debe ser como esta en la tabla
 public class Categoria {
 
+	@Id // Para declarar la llave primaria
+	@GeneratedValue(strategy=GenerationType.IDENTITY)//Para indicar que el ID va ser autoincrementable
 	private Integer id;
 	private String nombre;
 	private String descripcion;

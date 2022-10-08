@@ -2,9 +2,22 @@ package com.melaniebalam.model;
 
 import java.util.Date;
 
-/*Vamos a estar guardando todas nuestras clases de modelo de nuestra aplicacion*/
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+//import javax.persistence.Transient;
+
+/*Asi se crea el repositorio de Vacantes*/
+@Entity
+@Table(name="Vacantes")
 public class Vacante {
 
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	private String nombre;
 	private String descripcion;
@@ -14,6 +27,9 @@ public class Vacante {
 	private String imagen="no-image.png";
 	private String estatus;
 	private String detalles; 
+	//@Transient // se ignora el mapeo de categoria
+	@OneToOne // representa la relacion uno a uno (1:1)
+	@JoinColumn(name="idCategoria")
 	private Categoria categoria;
 	
 	
