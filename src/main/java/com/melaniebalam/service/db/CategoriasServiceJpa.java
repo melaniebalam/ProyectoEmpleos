@@ -12,7 +12,7 @@ import com.melaniebalam.repository.CategoriasRepository;
 import com.melaniebalam.service.ICategoriasService;
 
 @Service
-//@Primary // esta anotacion le esta diciendo a CATEGORIASCONTROLLER que utilize esta implementacion
+@Primary // esta anotacion le esta diciendo a CATEGORIASCONTROLLER que utilize esta implementacion
 public class CategoriasServiceJpa implements ICategoriasService {
 
 	@Autowired
