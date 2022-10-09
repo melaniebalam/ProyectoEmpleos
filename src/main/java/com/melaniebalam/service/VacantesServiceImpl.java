@@ -95,5 +95,10 @@ public class VacantesServiceImpl implements IVacantesService{ /*esta clase esta 
 		lista.add(vacante); // este objeto va mandar al contralador en nuestra clase de servicio
 		
 	}
+	@Override
+	public List<Vacante> buscarDestacadas() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

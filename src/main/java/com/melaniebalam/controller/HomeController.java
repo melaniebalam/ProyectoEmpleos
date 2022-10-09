@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 import com.melaniebalam.model.Vacante;
 import com.melaniebalam.service.IVacantesService;
@@ -64,24 +65,16 @@ public class HomeController {
 
 	@GetMapping("/") /* URL: localhost:8080/ */
 	public String mostrarHome(Model model){/* Es una variable de tipo model */ 
-		//EL CODIGO SE QUITO PORQUE LO PONDREMOS DE UNA FORMA MAS DINAMICA
-		/*model.addAttribute("mensaje", "Bienvenidos a empleos app"); /*Parametro de tipo model, al agregarlo ya podemos ingresar cualquier tipo de dato, tipo de dato que se uso: string*/
-		/*model.addAttribute("fecha", new Date()); /*Tiene un tipo de dato DATE, pero internamente es un object*/
-		
-		//String nombre = "Auxiliar de contabilidad";
-		//Date fechapub = new Date();
-		//double salario = 9000.0;
-		//boolean vigente = true;
-		
-		//model.addAttribute("nombre", nombre); /*No necesariamente debe coincidir el nombre del atributo con el nombre de la variable*/
-		//model.addAttribute("fecha", fechapub);
-		//model.addAttribute("salario", salario);
-		//model.addAttribute("vigente", vigente); /*Son atributos estaticos*/
-		
-		List<Vacante> lista = serviceVacantes.buscarTodas(); // con esta linea se esta recuperando los datos de tipo vacante
-		model.addAttribute("vacantes", lista); // Con esta lista agregamos la lista al modelo
-		
+		//List<Vacante> lista = serviceVacantes.buscarTodas(); // con esta linea se esta recuperando los datos de tipo vacante
+		//model.addAttribute("vacantes", lista); // Con esta lista agregamos la lista al modelo
+		//model.addAttribute("vacantes", serviceVacantes.buscarDestacadas());
 		return "home";
 	}
+	
+	@ModelAttribute // se esta agregando a nivel del metodo, aqui podemos agregar todos los atributos que queramos y estaran disponible para cualquier metodo
+	private void setGenericos(Model model) {
+		model.addAttribute("vacantes", serviceVacantes.buscarDestacadas());
+	}
+	
 	
 }
