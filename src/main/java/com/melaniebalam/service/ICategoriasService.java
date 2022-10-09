@@ -6,7 +6,10 @@ import com.melaniebalam.model.Categoria;
 public interface ICategoriasService {
 	void guardar(Categoria categoria);
     List<Categoria> buscarTodas();
-	Categoria buscarPorId(Integer idCategoria); 
+	Categoria buscarPorId(Integer idCategoria);  
+	// VIDEO 14 CARPETA 12
+	//Ejercicio: Implementar metodo
+	void eliminar(Integer idCategoria);
 	// todos los metodos que queramos implementar, deben estar aqui, para que se puedan mostrar en las otras interfazes
 }
 // Ejercicios video 12
@@ -27,3 +30,4 @@ public interface ICategoriasService {
   
  * 4. Agregar un nuevo menu llamado Categorias y configurar la URL al listado de Categorias
  */
+

@@ -38,4 +38,10 @@ public class CategoriasServiceJpa implements ICategoriasService {
 		return null; // si el ID no se encuentra va regresra un valor null
 	}
 
+	@Override
+	public void eliminar(Integer idCategoria) {
+		categoriasRepo.deleteById(idCategoria);
+		
+	}
+
 }
