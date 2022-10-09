@@ -1,9 +1,12 @@
 package com.melaniebalam.controller;
 
+import java.text.ParseException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -32,7 +35,13 @@ public class CategoriasController {
         model.addAttribute("categorias", lista);
 		return "categorias/listCategorias"; 
 	}
-	
+	@GetMapping(value = "/indexPaginate")
+	public String mostrarIndexPaginado(Model model, Pageable page) {
+	Page<Categoria> lista = serviceCategorias.buscarTodas(page);
+	model.addAttribute("categorias", lista);
+	return "categorias/listCategorias";
+	}
+
 
 	// @GetMapping("/create") Rresenta la URL, la c ual es "localhost:8080/create*/
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
@@ -55,11 +64,18 @@ public class CategoriasController {
 	// METODO PARA ELIMINAR UNA CATEGORIA
 	@RequestMapping("/delete/{id}")
 	public String eliminar(@PathVariable("id") int idCategoria, RedirectAttributes attributes) {
-		System.out.println("Borrando categoria con id: " + idCategoria);
-		serviceCategorias.eliminar(idCategoria);
-		attributes.addFlashAttribute("msg","La categoria fue eliminada");
-		//attributes.addFlashAttribute("msg", "La categoria fue eliminada!");
+		
+		try {
+			System.out.println("Borrando categoria con id: " + idCategoria);
+			serviceCategorias.eliminar(idCategoria);
+			attributes.addFlashAttribute("msg","La categoria fue eliminada");
+			//attributes.addFlashAttribute("msg", "La categoria fue eliminada!");
+			
+		} catch (Exception e) {
+			attributes.addFlashAttribute("msg","No se puede eliminar una categoria con una vacante");
+		}
 		return "redirect:/categorias/index";
+		
 	}
 	@GetMapping("/edit/{id}")
 	private String editar(@PathVariable("id") int idCategoria, Model model) {

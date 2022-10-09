@@ -5,9 +5,12 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.melaniebalam.model.Categoria;
+import com.melaniebalam.model.Vacante;
 import com.melaniebalam.repository.CategoriasRepository;
 import com.melaniebalam.service.ICategoriasService;
 
@@ -43,5 +46,12 @@ public class CategoriasServiceJpa implements ICategoriasService {
 		categoriasRepo.deleteById(idCategoria);
 		
 	}
+
+	@Override
+	public Page<Categoria> buscarTodas(Pageable page) {
+		return categoriasRepo.findAll(page);
+	}
+
+	
 
 }

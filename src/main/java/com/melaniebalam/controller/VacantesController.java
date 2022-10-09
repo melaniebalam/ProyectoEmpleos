@@ -8,7 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -60,6 +61,15 @@ public class VacantesController {
 		return "vacantes/listVacantes";
 	}
 
+	// Para que agreguemos paginacion a las vacantes
+	@GetMapping(value = "/indexPaginate")
+	public String mostrarIndexPaginado(Model model, Pageable page) {
+	Page<Vacante> lista = serviceVacantes.buscarTodas(page); // en lugar de que lo guarde en una lista lo guarda en una variable que implementa la interfaz pages 
+	model.addAttribute("vacantes", lista);
+	return "vacantes/listVacantes";
+	}
+
+	
 	// Este metodo es para que se puedan mostrar todas las categorias como opciones en el formulario de vacantes
 	@GetMapping("/create")
 	public String crear(Vacante vacante, Model model) { // se pasa como parametro un objeto de tipo vacante, asi se vincula la clase

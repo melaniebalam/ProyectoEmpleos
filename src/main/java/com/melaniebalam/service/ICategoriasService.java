@@ -1,6 +1,10 @@
 package com.melaniebalam.service;
 
 import java.util.List;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import com.melaniebalam.model.Categoria;
 
 public interface ICategoriasService {
@@ -11,6 +15,9 @@ public interface ICategoriasService {
 	//Ejercicio: Implementar metodo
 	void eliminar(Integer idCategoria);
 	// todos los metodos que queramos implementar, deben estar aqui, para que se puedan mostrar en las otras interfazes
+	
+	// Para agregar paginacion en las vacantes
+	Page<Categoria>buscarTodas(Pageable page);
 }
 // Ejercicios video 12
 /*

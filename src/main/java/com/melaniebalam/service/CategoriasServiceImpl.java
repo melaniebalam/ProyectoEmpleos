@@ -4,9 +4,12 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.context.annotation.Primary;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.melaniebalam.model.Categoria;
+import com.melaniebalam.model.Vacante;
 
 @Service
 //@Primary // si ponemos esta anotacion aca, va mostrar las categorias que estan en la lista, osea las estaticas
@@ -94,4 +97,10 @@ public class CategoriasServiceImpl implements ICategoriasService {
 		// TODO Auto-generated method stub
 		
 	}
+	@Override
+	public Page<Categoria> buscarTodas(Pageable page) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 }
