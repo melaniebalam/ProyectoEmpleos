@@ -16,6 +16,7 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -63,19 +64,20 @@ public class VacantesController {
 	@GetMapping("/create")
 	public String crear(Vacante vacante, Model model) { // se pasa como parametro un objeto de tipo vacante, asi se vincula la clase
 											// modelo, con el formulario que se esta renderizando
-		model.addAttribute("categorias", serviceCategorias.buscarTodas());
+		//model.addAttribute("categorias", serviceCategorias.buscarTodas());
 		return "vacantes/formVacante";
 	}
 
 	// Carpeta 6 video 1
 	@PostMapping("/save") // Es el mismo metodo pero mas corto, esta relacionado con el modelo VACANTE
-	public String guardar(Vacante vacante, BindingResult result, RedirectAttributes attributes, @RequestParam("archivoImagen") MultipartFile multiPart) {
+	public String guardar(Vacante vacante, BindingResult result, RedirectAttributes attributes, @RequestParam("archivoImagen") MultipartFile multiPart, Model model) {
 		if (result.hasErrors()) {
 			for (ObjectError error : result.getAllErrors()) {
 				System.out.println("Ocurrio un error: " + error.getDefaultMessage()); // Es para que desplegue en la
 																						// consola los errores que pasa
 																						// en el formulario
 			}
+			model.addAttribute("categorias", serviceCategorias.buscarTodas()); // esto hace que al momento de que haya un error de escritura pues conserve la categoria
 			return "vacantes/formVacante"; 
 		}
 		 
@@ -100,14 +102,30 @@ public class VacantesController {
 	}
 
 	
-	
-	@GetMapping("/delete")
-	public String eliminar(@RequestParam("id") int idVacante, Model model) {
-		System.out.println("Borrando vacante con id: " + idVacante);
-		model.addAttribute("id", idVacante);
-		return "mensaje";
+	/* OPERACIONES CRUD*/
+	// METODO PARA ELIMINAR UNA VACANTE 
+	@GetMapping("/delete/{id}")
+	public String eliminar(@PathVariable("id") int idVacante, RedirectAttributes attributes) {
+		System.out.println("Borrando vacante con id: " + idVacante); 
+		serviceVacantes.eliminar(idVacante); // con esta linea se estaria eliminando una vacante
+		//model.addAttribute("id", idVacante);
+		attributes.addFlashAttribute("msg", "La vacante fue eliminada!");
+		return "redirect:/vacantes/index"; // cuando se elimine, va regresar a la pagina de inicio de la lista 
 	}
 
+	// METODO PARA EDITAR UNA VACANTE 
+	@GetMapping("/edit/{id}")
+	private String editar(@PathVariable("id") int idVacante, Model model) {
+		Vacante vacante = serviceVacantes.buscarPorId(idVacante);
+		model.addAttribute("vacante", vacante);
+		return "vacantes/formVacante"; 
+	}
+	
+	@ModelAttribute // para que lo pudamos usar en cualquier metodo
+	public void setGenericos(Model model) {
+		model.addAttribute("categorias", serviceCategorias.buscarTodas());
+	}
+	
 	// el "verDetalle" es el que recibe el ID que es pasado desde la tabla HTMl
 	@GetMapping("/view/{id}")
 	public String verDetalle(@PathVariable("id") int idVacante, Model model) {

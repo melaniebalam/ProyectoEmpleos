@@ -10,4 +10,5 @@ public interface IVacantesService {
 	// metodo para guardar el objeto del formulario
 	void guardar(Vacante vacante); 
 	List<Vacante> buscarDestacadas();
+	void eliminar(Integer idVacante);
 }
