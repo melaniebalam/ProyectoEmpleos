@@ -44,7 +44,7 @@
               <td th:text="${usuario.nombre}"></td>
                <td th:text="${usuario.username}"></td>
                 <td th:text="${usuario.email}"></td>
-                 <td th:text="${usuario.estatus}"></td>
+                 <td th:text="${usuario.estatus==1 ? 'Activo' : 'No activo' }"></td>
           
                 <td>
                     <a th:href="@{/usuarios/delete/{id} (id=${usuario.id}) }" onclick="return confirm('¿Estas seguro?')" class="btn btn-success btn-sm" role="button" title="Eliminar el registro."><i class="fas fa-trash" aria-hidden="true"></i></a>
