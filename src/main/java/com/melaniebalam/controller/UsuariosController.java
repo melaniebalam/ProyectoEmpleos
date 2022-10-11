@@ -39,5 +39,15 @@ public class UsuariosController {
 		return "redirect:/usuarios/index";
 		
 	}
+	// Revisar
+	/*@GetMapping("/lock/{id}")
+	public String bloquear(Usuario usuario, RedirectAttributes attributes) {
+		// Ejercicio
+		System.out.println("Bloqueando usuario con : "+ usuario);
+		serviceUsuarios.guardar(usuario);
+		attributes.addFlashAttribute("msg", "El usuario fue bloqueado!");
+		return "redirect:/usuarios/index";
+		
+	}*/
 	
 }
