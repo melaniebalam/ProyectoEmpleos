@@ -50,6 +50,7 @@ public class HomeController {
 		
 		return "tabla";
 	}
+	
 	@GetMapping("/acerca")/* URL: localhost:8080/tabla */
 	public String mostrarAcerca(Model model) {
 		
