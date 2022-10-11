@@ -39,4 +39,5 @@ public class UsuariosController {
 		return "redirect:/usuarios/index";
 		
 	}
+	
 }
