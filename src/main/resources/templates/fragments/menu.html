@@ -15,8 +15,8 @@
             <li class="nav-item" sec:authorize="hasAnyAuthority('ADMINISTRADOR')">
               <a class="nav-link" th:href="@{/usuarios/index}">Usuarios</a>
             </li>
-            <li class="nav-item" sec:authorize="hasAnyAuthority('USUARIO')">
-              <a class="nav-link" th:href="@{/acerca}">Acerca</a>
+            <li class="nav-item" sec:authorize="hasAnyAuthority('USUARIO', 'ADMINISTRADOR', 'SUPERVISOR')">
+              <a class="nav-link" th:href="@{/acerca/}">Acerca</a>
             </li>          
           </ul>  
           <!-- (del inglés Non Breaking Space que significa espacio sin ruptura) sirve para representar 
@@ -25,9 +25,20 @@
           por ejemplo las dos palabras que forman una marca. -->
            
           <!-- el &nbsp es para que haya una separacion entre los botones -->
-          <span th:if="${session.usuario != null}" class="text-light" th:text="'Bienvenido ' + ${session.usuario.username}"></span>&nbsp;
-          <a class="btn btn-primary" th:href="@{/index}">Ingresar</a>&nbsp;
-          <a class="btn btn-primary" th:href="@{/signup}">Registrarse</a>&nbsp;
-          <a class="btn btn-primary" th:href="@{/logout}">Salir</a>&nbsp;
+         <!-- <span th:if="${session.usuario != null}" class="text-light" th:text="'Bienvenido ' + ${session.usuario.username}"></span>&nbsp; --> 
+          <!-- <span class="text-light">Bienvenido</span>&nbsp;<span class="text-light" sec:authentication="name"></span>-->
+          <!-- <a class="btn btn-primary" th:href="@{/index}">Ingresar</a>&nbsp;-->
+           <!--<a class="btn btn-primary" th:href="@{/signup}">Registrarse</a>&nbsp;-->
+		<div sec:authorize="isAnonymous()">
+			<a class="btn btn-primary" th:href="@{/index}">Ingresar</a>&nbsp; 
+			<a class="btn btn-primary" th:href="@{/signup}">Registrarse</a>&nbsp;
+		</div>
+
+		<!-- <a class="btn btn-primary" th:href="@{/logout}">Salir</a>&nbsp;-->
+		<div sec:authorize="isAuthenticated()">
+			<span class="text-light">Bienvenido</span>&nbsp;<span class="text-light" sec:authentication="name"></span>&nbsp;
+			<a class="btn btn-primary" th:href="@{/logout}">Salir</a>
+		</div>
+		
         </div>
       </nav>
