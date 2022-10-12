@@ -6,6 +6,8 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.data.domain.Example;
@@ -95,14 +97,23 @@ public class HomeController {
 		return "home";
 	}
 	// Esto funciona cuando ingresamos usuario y contraseña correcto
+	// El httpsession sirve para que podamos ingresar datos en la sesion del usuario 
 	@GetMapping("/index")
-	public String mostrarIndex(Authentication auth) {
+	public String mostrarIndex(Authentication auth, HttpSession session) {
 		String username = auth.getName();
 		System.out.println("Nombre del usuario: " + username);
 		
-		/*for (GrantedAuthority rol: auth.getAuthorities()) { // es para que muestre que rol tiene
+		for (GrantedAuthority rol: auth.getAuthorities()) { // es para que muestre que rol tiene
 			System.out.println("ROL: "+ rol.getAuthority());
-		}*/
+		}
+		if (session.getAttribute("usuario") == null) {
+			Usuario usuario = serviceUsuarios.buscarPorUsername(username);
+			usuario.setPassword(null); // para que no guarde la contraseña o no lo muestre
+			System.out.println("Usuario: " + usuario);
+			// para buscar datos en la sesion
+			session.setAttribute("usuario", usuario);
+		}
+		
 		return "redirect:/";
 	}
 	// Ejercicio DE USUARIOS 

@@ -25,6 +25,7 @@
           por ejemplo las dos palabras que forman una marca. -->
            
           <!-- el &nbsp es para que haya una separacion entre los botones -->
+          <span th:if="${session.usuario != null}" class="text-light" th:text="'Bienvenido ' + ${session.usuario.username}"></span>&nbsp;
           <a class="btn btn-primary" th:href="@{/index}">Ingresar</a>&nbsp;
           <a class="btn btn-primary" th:href="@{/signup}">Registrarse</a>&nbsp;
           <a class="btn btn-primary" th:href="@{/logout}">Salir</a>&nbsp;
