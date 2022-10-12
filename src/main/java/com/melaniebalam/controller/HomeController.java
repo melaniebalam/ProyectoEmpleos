@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -92,9 +94,19 @@ public class HomeController {
 		//model.addAttribute("vacantes", serviceVacantes.buscarDestacadas());
 		return "home";
 	}
-	
-	// Ejercicio DE USUARIOS
-	@GetMapping("/signup")
+	// Esto funciona cuando ingresamos usuario y contraseña correcto
+	@GetMapping("/index")
+	public String mostrarIndex(Authentication auth) {
+		String username = auth.getName();
+		System.out.println("Nombre del usuario: " + username);
+		
+		/*for (GrantedAuthority rol: auth.getAuthorities()) { // es para que muestre que rol tiene
+			System.out.println("ROL: "+ rol.getAuthority());
+		}*/
+		return "redirect:/";
+	}
+	// Ejercicio DE USUARIOS 
+	@GetMapping("/signup") 
 	public String registrarse(Usuario usuario) {
 		return "usuarios/formRegistro";
 	}

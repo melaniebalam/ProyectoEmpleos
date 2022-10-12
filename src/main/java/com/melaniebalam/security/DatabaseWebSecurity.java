@@ -34,6 +34,11 @@ protected void configure(HttpSecurity http) throws Exception {
 			.antMatchers("/bootstrap/**", "/images/**", "/tinymce/**", "/logos/**").permitAll()
 // Las vistas públicas no requieren autenticación
 			.antMatchers("/", "/signup", "/search", "/vacantes/view/**").permitAll()
+// Asignar permisos a URLs por ROLES PARA QUE QUE DEPENDIENDO DEL ROL QUE TENGAS ES COMO VAS ACCEDER A LAS SECCIONES
+			.antMatchers("/vacantes/**").hasAnyAuthority("SUPERVISOR","ADMINISTRADOR")
+			.antMatchers("/categorias/**").hasAnyAuthority("SUPERVISOR","ADMINISTRADOR")
+			.antMatchers("/usuarios/**").hasAnyAuthority("ADMINISTRADOR")
+			.antMatchers("/acerca").hasAnyAuthority("USUARIO")
 // Todas las demás URLs de la Aplicación requieren autenticación
 			.anyRequest().authenticated()
 // El formulario de Login no requiere autenticacion
