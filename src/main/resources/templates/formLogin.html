@@ -34,6 +34,12 @@
 							<div class="col-md-4">
 								<img class="mb-4 rounded mx-auto d-block"
 									th:src="@{/images/lock.png}" alt="" width="128" height="128">
+								<div th:if="${param.error}">
+									<center>
+										<span class="text-danger">*Usuario / Password
+											incorrectos!</span>
+									</center>
+								</div>
 								<h4 class="h3 mb-3 font-weight-normal">Ingresar</h4>
 								<label for="username" class="sr-only">Username</label> <input
 									type="text" name="username" id="username" class="form-control"

@@ -106,7 +106,7 @@ public class HomeController {
 	SecurityContextLogoutHandler logoutHandler =
 	new SecurityContextLogoutHandler();
 	logoutHandler.logout(request, null, null);
-	return "redirect:/";
+	return "redirect:/login";
 	}
 	
 	@GetMapping("/bcrypt/{texto}")
