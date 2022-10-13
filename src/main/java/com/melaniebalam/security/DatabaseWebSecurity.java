@@ -45,7 +45,7 @@ protected void configure(HttpSecurity http) throws Exception {
 // Todas las demás URLs de la Aplicación requieren autenticación
 			.anyRequest().authenticated()
 // El formulario de Login no requiere autenticacion
-			.and().formLogin().permitAll();
+			.and().formLogin().loginPage("/login").permitAll();
 }
 
 		@Bean

@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -94,12 +96,26 @@ public class HomeController {
 		
 		return "listado";
 	}
+	@GetMapping("/login" )
+	public String mostrarLogin() {
+	return "formLogin";
+	}
+	
+	@GetMapping("/logout")
+	public String logout(HttpServletRequest request){
+	SecurityContextLogoutHandler logoutHandler =
+	new SecurityContextLogoutHandler();
+	logoutHandler.logout(request, null, null);
+	return "redirect:/";
+	}
 	
 	@GetMapping("/bcrypt/{texto}")
 	@ResponseBody // sirve para que se renderize el texto y no una vista con el nombre
 	public String encriptar(@PathVariable("texto") String texto) {
 		return texto + " Encriptado en bcrypt: "+ passwordEncoder.encode(texto);
 	}
+	
+
 
 	@GetMapping("/") /* URL: localhost:8080/ */
 	public String mostrarHome(Model model){/* Es una variable de tipo model */ 
